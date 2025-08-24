@@ -3,8 +3,8 @@ services:
         container_name: jenkins-docker
         image: docker:dind
         privileged: true
-        ports:
-            - 2376:2376
+        #ports:
+        #    - 2376:2376
         networks:
             jenkins:
                 aliases:
@@ -19,9 +19,9 @@ services:
         container_name: jenkins-blueocean
         depends_on:
             - jenkins-docker
-        ports:
-            - 8080:8080
-            - 50000:50000
+        #ports:
+        #    - 8080:8080
+        #    - 50000:50000
         build:
             context: .
         restart: on-failure
