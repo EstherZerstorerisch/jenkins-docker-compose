@@ -19,6 +19,9 @@ services:
         container_name: jenkins-blueocean
         depends_on:
             - jenkins-docker
+        ports:
+            - 8080:8080
+            - 50000:50000
         build:
             context: .
         restart: on-failure
