@@ -1,43 +1,25 @@
 services:
-    jenkins-docker:
-        container_name: jenkins-docker
-        image: docker:dind
-        privileged: true
-        #ports:
-        #    - 2376:2376
-        networks:
-            - jenkins
-        env_file:
-            - stack.env
-        volumes:
-            - jenkins-docker-certs:/certs/client
-            - jenkins-data:/var/jenkins_home
-        command: --storage-driver overlay2
-    myjenkins-blueocean:
-        container_name: jenkins-blueocean
-        depends_on:
-            - jenkins-docker
-        #ports:
-        #    - 8080:8080
-        #    - 50000:50000
-        build:
-            context: .
-        restart: on-failure
-        networks:
-            - jenkins
-        env_file:
-            - stack.env
-        volumes:
-            - jenkins-data:/var/jenkins_home
-            - jenkins-docker-certs:/certs/client:ro
+  caddy:
+    container_name: caddy
+    build:
+        context: ./
+    restart: unless-stopped
+    networks:
+        - caddy_proxy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./conf:/etc/caddy
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
 networks:
-    jenkins:
-        external: true
-        name: jenkins
+    caddy_proxy:
+        name: caddy_proxy
 volumes:
-    jenkins-docker-certs:
-        external: true
-        name: jenkins-docker-certs
-    jenkins-data:
-        external: true
-        name: jenkins-data
+  caddy_data:
+      name: caddy_data
+  caddy_config:
+      name: caddy_config
