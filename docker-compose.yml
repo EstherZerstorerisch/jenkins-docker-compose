@@ -10,7 +10,7 @@ services:
                 aliases:
                     - docker
         environment:
-            - DOCKER_TLS_CERTDIR: /certs
+            DOCKER_TLS_CERTDIR: /certs
         volumes:
             - jenkins-docker-certs:/certs/client
             - jenkins-data:/var/jenkins_home
