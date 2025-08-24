@@ -6,9 +6,7 @@ services:
         #ports:
         #    - 2376:2376
         networks:
-            jenkins:
-                aliases:
-                    - docker
+            - jenkins
         env_file:
             - stack.env
         volumes:
