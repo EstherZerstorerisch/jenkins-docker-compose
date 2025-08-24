@@ -15,7 +15,8 @@ services:
         command: --storage-driver overlay2
     myjenkins-blueocean:
         container_name: jenkins-blueocean
-        image: myjenkins-blueocean:2.516.2-1
+        build:
+            context: .
         restart: on-failure
         networks:
             - jenkins
