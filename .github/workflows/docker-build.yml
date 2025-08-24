@@ -27,5 +27,5 @@ jobs:
         with:
           context: .
           file: ./Dockerfile # Specify your Dockerfile path if not in root
-          workflow_dispatch: true
+          push: true
           tags: voidq0/qubespace:caddy-custom-v1
