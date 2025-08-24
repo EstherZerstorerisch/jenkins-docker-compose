@@ -9,8 +9,8 @@ services:
             jenkins:
                 aliases:
                     - docker
-        environment:
-            DOCKER_TLS_CERTDIR: /certs
+        env_file:
+            - stack.env
         volumes:
             - jenkins-docker-certs:/certs/client
             - jenkins-data:/var/jenkins_home
@@ -24,10 +24,8 @@ services:
         restart: on-failure
         networks:
             - jenkins
-        environment:
-            DOCKER_HOST: 'tcp://docker:2376'
-            DOCKER_CERT_PATH: /certs/client
-            DOCKER_TLS_VERIFY: 1
+        env_file:
+            - stack.env
         volumes:
             - jenkins-data:/var/jenkins_home
             - jenkins-docker-certs:/certs/client:ro
